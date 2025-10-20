@@ -1,19 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Role, UserStatus } from '@prisma/client';
 import { Type } from 'class-transformer';
-import {
-  IsEmail,
-  IsString,
-  IsNotEmpty,
-  MinLength,
-  MaxLength,
-  IsOptional,
-  IsStrongPassword,
-  IsBoolean,
-  IsDate,
-  IsIn,
-} from 'class-validator';
+import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength, IsOptional, IsStrongPassword, IsBoolean, IsDate, IsIn } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -31,8 +18,7 @@ export class CreateUserDto {
       minSymbols: 1,
     },
     {
-      message:
-        'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre, un symbole et au moins 8 caractères.',
+      message: 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre, un symbole et au moins 8 caractères.',
     },
   )
   public password?: string;
@@ -65,8 +51,7 @@ export class UpdateUserDto {
       minSymbols: 1,
     },
     {
-      message:
-        'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre, un symbole et au moins 8 caractères.',
+      message: 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre, un symbole et au moins 8 caractères.',
     },
   )
   public password?: string;

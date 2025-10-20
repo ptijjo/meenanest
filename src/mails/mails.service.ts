@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import Mailjet from 'node-mailjet';
 import { verifyEmailTemplate } from 'src/utils/templates';
 
@@ -65,7 +65,10 @@ export class MailsService {
     const response = request.body as unknown as MailjetResponse;
 
     if (response.Messages[0].Status.trim().toLowerCase() !== 'success') {
-      throw new Error("Erreur lors de l'envoi de l'email d'invitation");
+      throw new HttpException(
+        "Erreur lors de l'envoi de l'email d'invitation",
+        HttpStatus.FORBIDDEN,
+      );
     }
     return response.Messages[0].Status.trim().toLowerCase();
   }

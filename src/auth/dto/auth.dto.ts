@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 export class CreateAuthDto {
@@ -12,8 +11,4 @@ export class CreateAuthDto {
   @IsOptional()
   @IsString()
   public googleId?: string;
-
-  @IsOptional()
-  @IsString()
-  public secretName: string;
 }

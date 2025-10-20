@@ -1,4 +1,5 @@
-import { Module } from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -7,6 +8,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { MailsService } from './mails/mails.service';
+import { TwofactorService } from './twofactor/twofactor.service';
+import { RedisModule } from './redis/redis.module';
+import { CsrfMiddleware } from './middleware/csrf.middleware';
 
 @Module({
   imports: [
@@ -21,8 +25,13 @@ import { MailsService } from './mails/mails.service';
     AuthModule,
     UsersModule,
     PrismaModule,
+    RedisModule,
   ],
   controllers: [AppController],
-  providers: [AppService, MailsService],
+  providers: [AppService, MailsService, TwofactorService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(_consumer: MiddlewareConsumer) {
+    // consumer.apply(CsrfMiddleware).forRoutes('*'); // ✅ Middleware appliqué proprement
+  }
+}

@@ -14,7 +14,7 @@ export interface RequestWithUser extends Request {
   user: User;
   jti: string;
   logIn: any;
-  isAuthenticated?: any;
+  isAuthenticated: any;
   refreshToken: string;
-  file: File;
+  file: any;
 }
